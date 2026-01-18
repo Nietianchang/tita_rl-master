@@ -1,0 +1,20 @@
+tensorboard --logdir=/home/ntc/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan15_13-34-43_test_barlowtwins_feetcontact --port=6006
+tensorboard --logdir=/home/ntc/tita_rl_1130/tita_rl_1130/logs/tita_constraint/Jan14_00-06-31_test_barlowtwins_feetcontact --port=6007
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Jan13_15-17-45_test_barlowtwins_feetcontact --port=6008
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Jan13_17-24-21_test_barlowtwins_feetcontact --port=6009
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec04_22-22-31_test_barlowtwins_feetcontact --port=6010
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec05_00-37-22_test_barlowtwins_feetcontact --port=6011
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec05_14-46-35_test_barlowtwins_feetcontact --port=6012
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec06_14-28-30_test_barlowtwins_feetcontact --port=6013
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec07_21-20-55_test_barlowtwins_feetcontact --port=6014
+tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Dec09_23-56-27_test_barlowtwins_feetcontact --port=6015
+
+python train.py --task=tita_constraint --resume --headless
+python train.py --task=tita_constraint --resume
+
+python simple_play.py --task=tita_constraint
+
+/usr/src/tensorrt/bin/trtexec --onnx=test.onnx --saveEngine=model_gn.engine
+
+conda activate tita_rl
+export LD_LIBRARY_PATH=/home/ros207/.conda/envs/tita_rl/lib:$LD_LIBRARY_PATH
