@@ -103,7 +103,8 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
         class scales( LeggedRobotCfg.rewards.scales ):
             torques = 0.0
             powers = -2e-5
-            termination = -200
+            # termination = -200
+            termination = -1000
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
             lin_vel_z = -0.0
@@ -118,7 +119,8 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
             action_smoothness= 0
             stand_still = 0.0
             foot_clearance= -0.0
-            orientation=-1.0
+            # orientation=-1.0
+            orientation=0.5
 
     class domain_rand( LeggedRobotCfg.domain_rand):
         randomize_friction = True
@@ -141,7 +143,8 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
         kd_range = [0.8, 1.2]
 
         randomize_lag_timesteps = True
-        lag_timesteps = 3
+        #lag_timesteps = 3
+        lag_timesteps = 15
 
         disturbance = False
         disturbance_range = [-30.0, 30.0]
@@ -239,7 +242,7 @@ class TitaConstraintRoughCfgPPO( LeggedRobotCfgPPO ):
         max_iterations = 10000000
         num_steps_per_env = 24
         resume = True
-        resume_path = 'tita_example_10000.pt'
+        resume_path = '/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan19_00-12-24_test_barlowtwins_feetcontact/model_82500.pt'
 
  
 

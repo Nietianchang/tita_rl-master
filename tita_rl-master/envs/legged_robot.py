@@ -21,6 +21,13 @@ from configs import LeggedRobotCfg
 from global_config import ROOT_DIR
 from utils.utils import random_quat
 
+def get_euler_xyz_tensor(quat):
+    r, p, w = get_euler_xyz(quat)
+    # stack r, p, w in dim1
+    euler_xyz = torch.stack((r, p, w), dim=1)
+    euler_xyz[euler_xyz > np.pi] -= 2 * np.pi
+    return euler_xyz
+
 class LeggedRobot(BaseTask):
     def __init__(self, cfg: LeggedRobotCfg, sim_params, physics_engine, sim_device, headless):
         """ Parses the provided config file,
@@ -82,6 +89,7 @@ class LeggedRobot(BaseTask):
         self.dof_pos = self.dof_state.view(self.num_envs, self.num_dof, 2)[..., 0]
         self.dof_vel = self.dof_state.view(self.num_envs, self.num_dof, 2)[..., 1]
         self.base_quat = self.root_states[:, 3:7]
+        self.base_euler_xyz = get_euler_xyz_tensor(self.base_quat)
         self.foot_velocities = self.rigid_body_states[:,
                                self.feet_indices,
                                7:10]
@@ -424,6 +432,7 @@ class LeggedRobot(BaseTask):
         self.base_lin_vel[:] = quat_rotate_inverse(self.base_quat, self.root_states[:, 7:10])
         self.base_ang_vel[:] = quat_rotate_inverse(self.base_quat, self.root_states[:, 10:13])
         self.projected_gravity[:] = quat_rotate_inverse(self.base_quat, self.gravity_vec)
+        self.base_euler_xyz = get_euler_xyz_tensor(self.base_quat)
 
         # update foot_velocities and foot_positions
         self.foot_velocities = self.rigid_body_states[:,
@@ -787,6 +796,11 @@ class LeggedRobot(BaseTask):
         # for i in range(len(self.lag_buffer)):
         #     self.lag_buffer[i][env_ids, :] = 0
         self.lag_buffer[env_ids,:,:] = 0
+
+        # fix reset gravity bug
+        self.base_quat[env_ids] = self.root_states[env_ids, 3:7]
+        self.base_euler_xyz = get_euler_xyz_tensor(self.base_quat)
+        self.projected_gravity[env_ids] = quat_rotate_inverse(self.base_quat[env_ids], self.gravity_vec[env_ids])
     
     def reset(self):
         """ Reset all robots"""
@@ -1160,7 +1174,10 @@ class LeggedRobot(BaseTask):
     
     def _reward_orientation(self):
         # Penalize non flat base orientation
-        return torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
+        # return torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
+        quat_mismatch = torch.exp(-torch.sum(torch.abs(self.base_euler_xyz[:, :2]), dim=1) * 10)
+        orientation = torch.exp(-torch.norm(self.projected_gravity[:, :2], dim=1) * 20)
+        return (quat_mismatch + orientation) / 2.
 
     def _reward_base_height(self):
         # Penalize base height away from target
