@@ -1,5 +1,5 @@
 tensorboard --logdir=/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan19_00-12-24_test_barlowtwins_feetcontact --port=6006
-tensorboard --logdir=/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan19_23-27-00_test_barlowtwins_feetcontact --port=6007
+tensorboard --logdir=/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan20_00-03-40_test_barlowtwins_feetcontact --port=6007
 tensorboard --logdir=/home/ntc/tita_rl_1130/tita_rl_1130/logs/tita_constraint/Jan14_00-06-31_test_barlowtwins_feetcontact --port=6007
 tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Jan13_15-17-45_test_barlowtwins_feetcontact --port=6008
 tensorboard --logdir=/media/ros207/data/tita_rl_1130/logs/tita_constraint/Jan13_17-24-21_test_barlowtwins_feetcontact --port=6009

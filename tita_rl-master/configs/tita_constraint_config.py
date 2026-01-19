@@ -78,12 +78,14 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
         max_curriculum = 1.
         num_commands = 4  # default: lin_vel_x, lin_vel_y, ang_vel_yaw, heading (in heading mode ang_vel_yaw is recomputed from heading error)
         resampling_time = 10.  # time before command are changed[s]
-        heading_command = True  # if true: compute ang vel command from heading error
+        #heading_command = True  # if true: compute ang vel command from heading error
+        heading_command = False  # if true: compute ang vel command from heading error
         global_reference = False
 
         class ranges:
             lin_vel_x = [-1.0, 1.0]  # min max [m/s]
-            lin_vel_y = [-1.0, 1.0]  # min max [m/s]
+            # lin_vel_y = [-1.0, 1.0]  # min max [m/s]
+            lin_vel_y = [-0.0, 0.0]  # min max [m/s]
             ang_vel_yaw = [-1, 1]  # min max [rad/s]
             heading = [-3.14, 3.14]
 
@@ -104,7 +106,7 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
             torques = 0.0
             powers = -2e-5
             # termination = -200
-            termination = -1000
+            termination = -800
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
             lin_vel_z = -0.0
