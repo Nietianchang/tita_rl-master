@@ -146,7 +146,7 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
 
         randomize_lag_timesteps = True
         #lag_timesteps = 3
-        lag_timesteps = 15
+        lag_timesteps = 9
 
         disturbance = False
         disturbance_range = [-30.0, 30.0]
