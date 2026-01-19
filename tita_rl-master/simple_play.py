@@ -71,7 +71,7 @@ def play_on_constraint_policy_runner(args):
     print(policy)
     #model_dict = torch.load(os.path.join(ROOT_DIR, 'model_4000_phase2_hip.pt'))
     # model_dict = torch.load(os.path.join(ROOT_DIR, 'tita_example_10000.pt'))
-    model_dict = torch.load(os.path.join('/home/ntc/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan15_13-34-43_test_barlowtwins_feetcontact', 'model_311500.pt'))
+    model_dict = torch.load(os.path.join('/home/ntc/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan15_13-34-43_test_barlowtwins_feetcontact', 'model_401000.pt'))
     policy.load_state_dict(model_dict['model_state_dict'])
     policy = policy.to(env.device)
     policy.save_torch_jit_policy('model.pt',env.device)

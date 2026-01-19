@@ -78,12 +78,14 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
         max_curriculum = 1.
         num_commands = 4  # default: lin_vel_x, lin_vel_y, ang_vel_yaw, heading (in heading mode ang_vel_yaw is recomputed from heading error)
         resampling_time = 10.  # time before command are changed[s]
-        heading_command = True  # if true: compute ang vel command from heading error
+        #heading_command = True  # if true: compute ang vel command from heading error
+        heading_command = False  # if true: compute ang vel command from heading error
         global_reference = False
 
         class ranges:
             lin_vel_x = [-1.0, 1.0]  # min max [m/s]
-            lin_vel_y = [-1.0, 1.0]  # min max [m/s]
+            # lin_vel_y = [-1.0, 1.0]  # min max [m/s]
+            lin_vel_y = [-0.0, 0.0]  # min max [m/s]
             ang_vel_yaw = [-1, 1]  # min max [rad/s]
             heading = [-3.14, 3.14]
 
@@ -239,7 +241,8 @@ class TitaConstraintRoughCfgPPO( LeggedRobotCfgPPO ):
         max_iterations = 10000000
         num_steps_per_env = 24
         resume = True
-        resume_path = 'tita_example_10000.pt'
+        #resume_path = 'tita_example_10000.pt'
+        resume_path = '/home/ntc/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan15_13-34-43_test_barlowtwins_feetcontact/model_405000.pt'
 
  
 
