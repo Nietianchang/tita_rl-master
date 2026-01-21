@@ -84,7 +84,7 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
 
         class ranges:
             lin_vel_x = [-1.0, 1.0]  # min max [m/s]
-            # lin_vel_y = [-1.0, 1.0]  # min max [m/s]
+            #lin_vel_y = [-1.0, 1.0]  # min max [m/s]
             lin_vel_y = [-0.0, 0.0]  # min max [m/s]
             ang_vel_yaw = [-1, 1]  # min max [rad/s]
             heading = [-3.14, 3.14]
@@ -105,8 +105,8 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
         class scales( LeggedRobotCfg.rewards.scales ):
             torques = 0.0
             powers = -2e-5
-            # termination = -200
-            termination = -800
+            #termination = -200
+            termination = -220
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.5
             lin_vel_z = -0.0
@@ -114,15 +114,15 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
             dof_vel = 0.0
             dof_acc = -2.5e-7
             base_height = -1.0
-            feet_air_time = 0.0
+            feet_air_time = 0.1
             collision = -1.0
             feet_stumble = 0.0
             action_rate = -0.01
             action_smoothness= 0
             stand_still = 0.0
-            foot_clearance= -0.0
+            foot_clearance= -0.1
             # orientation=-1.0
-            orientation=0.5
+            orientation=1.0
 
     class domain_rand( LeggedRobotCfg.domain_rand):
         randomize_friction = True
@@ -146,7 +146,7 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
 
         randomize_lag_timesteps = True
         #lag_timesteps = 3
-        lag_timesteps = 9
+        lag_timesteps = 4
 
         disturbance = False
         disturbance_range = [-30.0, 30.0]
@@ -243,8 +243,11 @@ class TitaConstraintRoughCfgPPO( LeggedRobotCfgPPO ):
         algorithm_class_name = 'NP3O'
         max_iterations = 10000000
         num_steps_per_env = 24
-        resume = True
-        resume_path = '/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan19_00-12-24_test_barlowtwins_feetcontact/model_82500.pt'
+        # resume = True
+        resume = False
+        # resume_path = '/media/ros207/data/tita_rl-master/tita_rl-master/logs/tita_constraint/Jan19_00-12-24_test_barlowtwins_feetcontact/model_82500.pt'
+        resume_path = None
+        #resume_path = '/media/ros207/data/tita_rl-master/tita_rl-master/model_32000.pt'
 
  
 

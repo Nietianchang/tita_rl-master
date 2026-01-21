@@ -1176,8 +1176,9 @@ class LeggedRobot(BaseTask):
         # Penalize non flat base orientation
         # return torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
         quat_mismatch = torch.exp(-torch.sum(torch.abs(self.base_euler_xyz[:, :2]), dim=1) * 10)
-        orientation = torch.exp(-torch.norm(self.projected_gravity[:, :2], dim=1) * 20)
-        return (quat_mismatch + orientation) / 2.
+        #orientation = torch.exp(-torch.norm(self.projected_gravity[:, :2], dim=1) * 20)
+        orientation = -torch.sum(torch.square(self.projected_gravity[:, :2]), dim=1)
+        return 0.25 * quat_mismatch + orientation
 
     def _reward_base_height(self):
         # Penalize base height away from target
