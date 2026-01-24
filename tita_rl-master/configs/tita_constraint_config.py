@@ -108,21 +108,21 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
             #termination = -200
             termination = -220
             tracking_lin_vel = 1.0
-            tracking_ang_vel = 0.5
+            tracking_ang_vel = 2.0
             lin_vel_z = -0.0
             ang_vel_xy = -0.05
             dof_vel = 0.0
             dof_acc = -2.5e-7
             base_height = -1.0
-            feet_air_time = 0.1
+            feet_air_time = 1.0
             collision = -1.0
             feet_stumble = 0.0
             action_rate = -0.01
             action_smoothness= 0
             stand_still = 0.0
-            foot_clearance= -0.1
+            #foot_clearance= -0.1
             # orientation=-1.0
-            orientation=1.0
+            orientation=2.0
 
     class domain_rand( LeggedRobotCfg.domain_rand):
         randomize_friction = True
@@ -177,14 +177,14 @@ class TitaConstraintRoughCfg( LeggedRobotCfg ):
     
     class costs:
         class scales:
-            pos_limit = 0.3
-            torque_limit = 0.3
-            dof_vel_limits = 0.3
+            pos_limit = 1.3
+            torque_limit = 1.3
+            dof_vel_limits = 1.3
             # vel_smoothness = 0.1
-            acc_smoothness = 0.1
+            acc_smoothness = 1.1
             #collision = 0.1
-            feet_contact_forces = 0.1
-            stumble = 0.1
+            feet_contact_forces = 1.1
+            stumble = 1.1
         class d_values:
             pos_limit = 0.0
             torque_limit = 0.0
